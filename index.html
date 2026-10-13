@@ -10,11 +10,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Ambient AI Glowing Canvas & Grid Background -->
+  <!-- Top 3D Scroll Progress Indicator -->
+  <div id="scrollProgressBar" class="scroll-progress-bar" aria-hidden="true"></div>
+
+  <!-- Ambient 3D WebGL Scene, Cinematic Video & AI Glowing Background -->
   <div class="ai-ambient-layer" aria-hidden="true">
+    <div class="bg-video-wrapper">
+      <!-- Top / Hero Ambient Video -->
+      <video id="bgVideo" class="bg-video bg-video-top" autoplay loop muted playsinline preload="auto">
+        <source src="assets/ambient-bg.mp4" type="video/mp4">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260411_104032_69319010-2458-492b-b04d-b40a5dfa4482.mp4" type="video/mp4">
+      </video>
+      <!-- Bottom Scroll Ambient Video -->
+      <video id="bgVideoBottom" class="bg-video bg-video-bottom" autoplay loop muted playsinline preload="auto">
+        <source src="assets/bottom-bg.mp4" type="video/mp4">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_055001_8e16d972-3b2b-441c-86ad-2901a54682f9.mp4" type="video/mp4">
+      </video>
+      <div class="bg-video-overlay"></div>
+    </div>
+    <canvas id="webglCanvas"></canvas>
     <canvas id="neuralCanvas"></canvas>
     <div class="aurora-beam"></div>
     <div class="glow-orb orb-primary"></div>
@@ -844,6 +862,9 @@
     </div>
   </footer>
 
+  <!-- 3D WebGL (Three.js) & Smooth Inertia Scrolling (Lenis) -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

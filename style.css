@@ -43,6 +43,41 @@ html {
   font-size: 16px;
 }
 
+/* Lenis Smooth Scrolling Core Configuration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Top Glowing 3D Scroll Progress Indicator */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #00f2fe 0%, #6366f1 40%, #9d4edd 75%, #f43f5e 100%);
+  z-index: 99999;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.8), 0 0 20px rgba(157, 78, 221, 0.6);
+  pointer-events: none;
+  transition: width 0.05s ease-out;
+}
+
 body {
   background-color: var(--bg-main);
   color: var(--text-primary);
@@ -65,14 +100,70 @@ body {
   overflow: hidden;
 }
 
-#neuralCanvas {
+/* Background Ambient Cinematic Video */
+.bg-video-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity 0.4s ease-out;
+}
+
+.bg-video-top {
+  opacity: 0.38;
+  filter: contrast(1.15) brightness(0.7) saturate(1.25);
+  z-index: 1;
+}
+
+.bg-video-bottom {
+  opacity: 0;
+  filter: contrast(1.18) brightness(0.72) saturate(1.28);
+  z-index: 2;
+}
+
+.bg-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 30%, rgba(5, 7, 18, 0.3) 0%, rgba(5, 7, 18, 0.7) 60%, rgba(5, 7, 18, 0.95) 100%),
+    linear-gradient(180deg, rgba(5, 7, 18, 0.2) 0%, rgba(5, 7, 18, 0.6) 50%, #050712 100%);
+  pointer-events: none;
+}
+
+#webglCanvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.85;
+  opacity: 0.95;
+}
+
+#neuralCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
 }
 
 .aurora-beam {
@@ -1831,18 +1922,59 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   ANIMATIONS & REVEAL EFFECTS
+   3D CARD TILT, SPECULAR GLARE & PERSPECTIVE
+   ========================================================================== */
+
+.project-card,
+.skill-card,
+.profile-hero-card,
+.ai-code-console,
+.timeline-card,
+.pingzo-tier-card,
+.contact-card,
+.about-card,
+.metric-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card-3d-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  mix-blend-mode: screen;
+}
+
+/* 3D Depth Layers inside cards */
+.project-card:hover .project-top,
+.skill-card:hover .skill-card-head,
+.profile-hero-card:hover .profile-hero-info,
+.pingzo-tier-card:hover .tier-header,
+.timeline-card:hover .timeline-card-header {
+  transform: translateZ(16px);
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ==========================================================================
+   ANIMATIONS & 3D REVEAL EFFECTS
    ========================================================================== */
 
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: perspective(1200px) rotateX(7deg) translateY(28px);
+  transform-origin: center top;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: perspective(1200px) rotateX(0deg) translateY(0);
 }
 
 .delay-1 {
