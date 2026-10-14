@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sathish-portfolio-website.onrender.com/sitemap.xml
